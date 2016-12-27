@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { SignupPage } from '../signup/signup';
+import { LoginPage } from '../login/login';
 
-/*
-  Generated class for the Splash page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-splash',
   templateUrl: 'splash.html'
@@ -17,6 +13,14 @@ export class SplashPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SplashPage');
+  }
+
+  goToLogin(){
+    this.navCtrl.push(LoginPage);
+  }
+
+  goToSignup(){
+    this.navCtrl.push(SignupPage);
   }
 
 }
