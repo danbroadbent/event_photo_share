@@ -14,7 +14,6 @@ export class ProfileData {
   }
 
   getUserProfile(): any {
-    debugger
     return this.userProfile.child(this.currentUser.uid);
   }
 

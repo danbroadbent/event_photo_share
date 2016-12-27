@@ -15,6 +15,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { EventCreatePage } from '../pages/event-create/event-create';
 import { EventDetailsPage } from '../pages/event-details/event-details';
+import { ProfileEditPage } from '../pages/profile-edit/profile-edit';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { EventDetailsPage } from '../pages/event-details/event-details';
     ProfilePage,
     ResetPasswordPage,
     EventCreatePage,
-    EventDetailsPage
+    EventDetailsPage,
+    ProfileEditPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -43,7 +45,8 @@ import { EventDetailsPage } from '../pages/event-details/event-details';
     ProfilePage,
     ResetPasswordPage,
     EventCreatePage,
-    EventDetailsPage
+    EventDetailsPage,
+    ProfileEditPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthData, EventData, ProfileData]
 })
