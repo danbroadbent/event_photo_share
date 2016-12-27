@@ -4,6 +4,7 @@ import { MyApp } from './app.component';
 
 import { AuthData } from '../providers/auth-data';
 import { EventData } from '../providers/event-data';
+import { ProfileData } from '../providers/profile-data';
 
 import { SplashPage } from '../pages/splash/splash';
 import { SignupPage } from '../pages/signup/signup';
@@ -44,6 +45,6 @@ import { EventDetailsPage } from '../pages/event-details/event-details';
     EventCreatePage,
     EventDetailsPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthData, EventData]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthData, EventData, ProfileData]
 })
 export class AppModule {}
