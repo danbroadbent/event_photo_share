@@ -1,0 +1,18 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Create Event</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<form [formGroup]="event" (ngSubmit)="createEvent()">
+  <ion-item>
+    <ion-label stacked>Event Name</ion-label>
+    <ion-input formControlName="eventName" type="text"></ion-input>
+  </ion-item>
+  <button ion-button block type="submit">Create Event</button>
+</form>
+</ion-content>

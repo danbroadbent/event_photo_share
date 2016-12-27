@@ -2,12 +2,18 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
+import { AuthData } from '../providers/auth-data';
+import { EventData } from '../providers/event-data';
+
 import { SplashPage } from '../pages/splash/splash';
 import { SignupPage } from '../pages/signup/signup';
 import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
 import { EventsPage } from '../pages/events/events';
 import { ProfilePage } from '../pages/profile/profile';
+import { ResetPasswordPage } from '../pages/reset-password/reset-password';
+import { EventCreatePage } from '../pages/event-create/event-create';
+import { EventDetailsPage } from '../pages/event-details/event-details';
 
 @NgModule({
   declarations: [
@@ -17,7 +23,10 @@ import { ProfilePage } from '../pages/profile/profile';
     LoginPage,
     TabsPage,
     EventsPage,
-    ProfilePage
+    ProfilePage,
+    ResetPasswordPage,
+    EventCreatePage,
+    EventDetailsPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -30,8 +39,11 @@ import { ProfilePage } from '../pages/profile/profile';
     LoginPage,
     TabsPage,
     EventsPage,
-    ProfilePage
+    ProfilePage,
+    ResetPasswordPage,
+    EventCreatePage,
+    EventDetailsPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthData, EventData]
 })
 export class AppModule {}

@@ -1,22 +1,41 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
+import { EventDetailsPage } from '../event-details/event-details';
+import { EventCreatePage } from '../event-create/event-create';
+import { EventData } from '../../providers/event-data';
 
-/*
-  Generated class for the Events page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-events',
   templateUrl: 'events.html'
 })
 export class EventsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  events: any = [];
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EventsPage');
+  constructor(public nav: NavController, public eventData: EventData, public platform: Platform) {
+  
+  this.eventData = eventData;
+  this.nav = nav;
+
+  this.eventData.getEventList().on('value', snapshot => {
+        let rawList = [];
+        snapshot.forEach( snap => {
+          rawList.push({
+            id: snap.key,
+            name: snap.val().name,
+          });
+        });
+        this.events = rawList;
+      });
+    }
+
+  goToCreateEvent(){
+    this.nav.push(EventCreatePage);
   }
 
+  viewEvent(event): void {
+    this.nav.push(EventDetailsPage, {
+      event: event
+    });
+  }
 }
