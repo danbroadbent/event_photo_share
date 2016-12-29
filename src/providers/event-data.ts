@@ -33,4 +33,8 @@ export class EventData {
     })
   }
 
+  deleteEvent(eventId: string): any {
+    this.eventList.child(eventId).remove()
+  }
+
 }
