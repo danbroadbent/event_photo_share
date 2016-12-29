@@ -26,4 +26,11 @@ export class EventData {
     });
   }
 
+  editEvent(event: any, eventId: string): any {
+    return this.eventList.child(eventId).update({
+      name: event.eventName,
+      description: event.eventDescription
+    })
+  }
+
 }
