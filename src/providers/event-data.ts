@@ -20,6 +20,7 @@ export class EventData {
   createEvent(event: any): any {
     return this.eventList.push({
       name: event.eventName,
+      description: event.eventDescription
     }).then( newEvent => {
       this.eventList.child(newEvent.key).child('id').set(newEvent.key);
     });

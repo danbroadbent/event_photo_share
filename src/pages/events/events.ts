@@ -23,6 +23,7 @@ export class EventsPage {
           rawList.push({
             id: snap.key,
             name: snap.val().name,
+            description: snap.val().description,
           });
         });
         this.events = rawList;

@@ -13,7 +13,8 @@ export class EventCreatePage {
 
   constructor(public navCtrl: NavController, public platform: Platform, public formBuilder: FormBuilder, public eventData: EventData) {
     this.event = formBuilder.group({
-      eventName: ['']
+      eventName: [''],
+      eventDescription: ['']
     });
   }
 
