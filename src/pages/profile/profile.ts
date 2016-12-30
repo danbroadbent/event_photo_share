@@ -1,22 +1,30 @@
+import { NavController } from 'ionic-angular';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { ProfileData } from '../../providers/profile-data';
+import { ProfileEditPage } from '../profile-edit/profile-edit';
 
-/*
-  Generated class for the Profile page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-profile',
-  templateUrl: 'profile.html'
+  templateUrl: 'profile.html',
 })
 export class ProfilePage {
+  public userProfile: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public nav: NavController, public profileData: ProfileData) {
+    this.nav = nav;
+    this.profileData = profileData;
+
+    this.profileData.getUserProfile().on('value', (data) => {
+      this.userProfile = data.val();
+    });
+  }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
+    console.log('Hello ProfileEditPage Page');
+  }
+
+  goToProfileEdit(){
+    this.nav.push(ProfileEditPage);
   }
 
 }

@@ -1,39 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar } from 'ionic-native';
 
-import { SplashPage } from '../pages/splash/splash';
 import { TabsPage } from '../pages/tabs/tabs';
+import { SplashPage } from '../pages/splash/splash';
 
 import firebase from 'firebase';
 
 
 @Component({
-  templateUrl: 'app.html'
+  template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage: any = TabsPage;
+  rootPage: any;
+  zone: NgZone;
 
   constructor(platform: Platform) {
-    const config = {
+    this.zone = new NgZone({});
+    firebase.initializeApp({
       apiKey: "AIzaSyA2sP87i8Ae5m78Rm0B-ELnDZHucICx05E",
       authDomain: "event-photo-share.firebaseapp.com",
       databaseURL: "https://event-photo-share.firebaseio.com",
       storageBucket: "event-photo-share.appspot.com",
       messagingSenderId: "38582519137"
-    };
-    firebase.initializeApp(config);
-
-    firebase.auth().onAuthStateChanged( user => {
-      if (!user) {
-        this.rootPage = SplashPage;
-      }
     });
+
+    firebase.auth().onAuthStateChanged((user) => {
+      this.zone.run( () => {
+        if (!user) {
+          this.rootPage = SplashPage;
+        } else { this.rootPage = TabsPage; }
+      });     
+    });
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
-      Splashscreen.hide();
     });
   }
 }
