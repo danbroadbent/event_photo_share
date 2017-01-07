@@ -7,8 +7,8 @@ So far it is a simple CRUD app with Firebase Authentication.
 I have deployed it as a web app and iOS app so far.
 
 See it live:
-Web - http://event-photo-share.firebaseapp.com
-iOS - https://itunes.apple.com/us/app/event-photo-share/id1191691087?mt=8
+- Web: http://event-photo-share.firebaseapp.com 
+- iOS: https://itunes.apple.com/us/app/event-photo-share/id1191691087?mt=8
 
 Future plans include:
 - Photo uploads backed by Firebase Storage
