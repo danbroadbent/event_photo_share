@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { EventEditPage } from '../event-edit/event-edit';
 import { EventData } from '../../providers/event-data';
+import { PhotoUploaderPage } from '../photo-uploader/photo-uploader'
 
 @Component({
   selector: 'page-event-details',
@@ -30,10 +31,8 @@ export class EventDetailsPage {
   this.nav.pop();
   }
 
-  uploadPhoto(): void {
-    alert(
-      "upload photo button works"
-    )
+  goToPhotoUploader() {
+    this.nav.push(PhotoUploaderPage);
   }
 
 }
