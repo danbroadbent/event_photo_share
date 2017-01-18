@@ -10,6 +10,9 @@
 <ion-content padding>
   Event Description: {{event.description}}
   <div class='event-buttons'>
+    <button ion-button large block color="primary" id='addPhoto' (click)="uploadPhoto()">
+      Add Photo
+    </button>
     <button ion-button large block color="pop" id='edit' (click)="goToEditEvent()">
       Edit Event
     </button>

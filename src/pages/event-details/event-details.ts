@@ -30,4 +30,10 @@ export class EventDetailsPage {
   this.nav.pop();
   }
 
+  uploadPhoto(): void {
+    alert(
+      "upload photo button works"
+    )
+  }
+
 }
