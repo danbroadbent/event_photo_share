@@ -8,8 +8,6 @@ import { NavController, NavParams } from 'ionic-angular';
 
 export class PhotoUploaderPage {
 
-
-
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
@@ -22,28 +20,25 @@ export class PhotoUploaderPage {
     console.log(files);
     var output = document.getElementById("result");
     output.innerHTML = "";   
-      for(var i = 0; i< files.length; i++)
-      {
-          var file = files[i];
-          
-          //Only pics
-          if(!file.type.match('image'))
-            continue;
-          
+    for(var i = 0; i< files.length; i++){
+        var file = files[i];
+        if(file.type.match('image.*')){
           var picReader = new FileReader();
           picReader.onload = function (e : any) {
-            var div = document.createElement("div");       
-            div.innerHTML = "<img class='thumbnail' src='" + e.target.result + "'" +
-                    "title='" + e.target.name + "'/>";
-            output.insertBefore(div,null);
+          var div = document.createElement("div");       
+          div.innerHTML = "<img class='thumbnail' src='" + e.target.result + "'" +
+                  "title='" + e.target.name + "'/>";
+          output.insertBefore(div,null);
         }   
-        
-          
-            //Read the image
-          picReader.readAsDataURL(file);
-      }   
+        picReader.readAsDataURL(file);
+        this.addUploadButton()
+      }  else {
+      alert("You can only upload image files.");
+      }
+    }
   }
 
-
-
+  addUploadButton() {
+    document.getElementById("uploadButton").removeAttribute("hidden")
+  }
 }
