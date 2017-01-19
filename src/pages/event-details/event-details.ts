@@ -32,7 +32,9 @@ export class EventDetailsPage {
   }
 
   goToPhotoUploader() {
-    this.nav.push(PhotoUploaderPage);
+    this.nav.push(PhotoUploaderPage, { 
+      event: this.event
+    });
   }
 
 }

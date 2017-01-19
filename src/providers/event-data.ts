@@ -39,16 +39,25 @@ export class EventData {
     this.eventList.child(eventId).remove()
   }
 
-  addEventPhoto(file: any): any {
+  uploadPhoto(file: any, eventId: string): any {
     let date = new Date().getTime()
     return this.photoBucket.child(date + file.name).put(file).then(function(snapshot){
       console.log("upload successful")
-      snapshot.downloadURL;
+      return snapshot.downloadURL;
     }, function(error) {
-      alert("Upload Unsuccessful")
-      error
+      alert("Upload Unsuccessful" + error)
+    }).then( downloadURL => {
+      this.addEventPhoto(downloadURL, eventId)
     })
     };
+
+    addEventPhoto(downloadURL, eventId) {
+      this.eventList.child(eventId).child('photos/').push({
+        url: downloadURL,
+        owner: this.currentUser.uid,
+        event: eventId
+      })
+    }
   
 
 }
