@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { EventData } from '../../providers/event-data';
+import { LoadingController } from 'ionic-angular';
 
 @Component({
   selector: 'page-photo-uploader',
@@ -8,7 +10,11 @@ import { NavController, NavParams } from 'ionic-angular';
 
 export class PhotoUploaderPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  files: any = {};
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public eventData: EventData, public loadingCtrl: LoadingController) {
+    
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PhotoUploaderPage');
@@ -16,12 +22,12 @@ export class PhotoUploaderPage {
 
   addPhotos(event) {
     console.log('onChange');
-    var files = event.srcElement.files;
-    console.log(files);
+    this.files = event.srcElement.files;
+    console.log(this.files);
     var output = document.getElementById("result");
     output.innerHTML = "";   
-    for(var i = 0; i< files.length; i++){
-        var file = files[i];
+    for(var i = 0; i< this.files.length; i++){
+        var file = this.files[i];
         if(file.type.match('image.*')){
           var picReader = new FileReader();
           picReader.onload = function (e : any) {
@@ -41,4 +47,23 @@ export class PhotoUploaderPage {
   addUploadButton() {
     document.getElementById("uploadButton").removeAttribute("hidden")
   }
+
+  uploadPhotos() {
+    let loader = this.loadingCtrl.create({
+      content: "Photos Uploading..."
+      });
+    loader.present();
+    for(var i = 0; i< this.files.length; i++){
+      var file = this.files[i];
+      if( i == this.files.length - 1){
+        this.eventData.addEventPhoto(file).then((result) => {
+          loader.dismiss()
+          this.navCtrl.pop()
+        })
+      } else {
+        this.eventData.addEventPhoto(file) 
+      }
+    }
+  }
+
 }
