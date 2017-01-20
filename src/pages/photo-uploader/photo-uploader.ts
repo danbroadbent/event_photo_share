@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { EventData } from '../../providers/event-data';
+import { PhotoData } from '../../providers/photo-data';
 import { LoadingController } from 'ionic-angular';
 
 @Component({
@@ -13,7 +13,7 @@ export class PhotoUploaderPage {
   files: any = {};
   event: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public eventData: EventData, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public photoData: PhotoData, public loadingCtrl: LoadingController) {
     this.event = this.navParams.get('event');
   }
 
@@ -57,12 +57,12 @@ export class PhotoUploaderPage {
     for(var i = 0; i< this.files.length; i++){
       var file = this.files[i];
       if( i == this.files.length - 1){
-        this.eventData.uploadPhoto(file, this.event.id).then((result) => {
+        this.photoData.uploadPhoto(file, this.event.id).then((result) => {
           loader.dismiss()
           this.navCtrl.pop()
         })
       } else {
-        this.eventData.uploadPhoto(file, this.event.id) 
+        this.photoData.uploadPhoto(file, this.event.id) 
       }
     }
   }

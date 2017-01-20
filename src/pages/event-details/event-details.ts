@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { EventEditPage } from '../event-edit/event-edit';
 import { EventData } from '../../providers/event-data';
+import { PhotoData } from '../../providers/photo-data';
 import { PhotoUploaderPage } from '../photo-uploader/photo-uploader'
 
 @Component({
@@ -13,9 +14,9 @@ export class EventDetailsPage {
   event: any;
   photos: any;
 
-  constructor(public nav: NavController, public navParams: NavParams, private eventData: EventData) {
+  constructor(public nav: NavController, public navParams: NavParams, private eventData: EventData, public photoData: PhotoData) {
     this.event = this.navParams.get('event');
-    this.eventData.getPhotos(this.event.id).on('value', snapshot => {
+    this.photoData.getEventPhotos(this.event.id).on('value', snapshot => {
         let rawList = [];
         snapshot.forEach( snap => {
           rawList.push({
