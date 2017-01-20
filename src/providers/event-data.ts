@@ -19,6 +19,10 @@ export class EventData {
     return this.eventList;
   }
 
+  getPhotos(eventId): any {
+    return this.eventList.child(eventId).child('photos/');
+  }
+
   createEvent(event: any): any {
     return this.eventList.push({
       name: event.eventName,
@@ -55,7 +59,6 @@ export class EventData {
       this.eventList.child(eventId).child('photos/').push({
         url: downloadURL,
         owner: this.currentUser.uid,
-        event: eventId
       })
     }
   

@@ -11,9 +11,21 @@ import { PhotoUploaderPage } from '../photo-uploader/photo-uploader'
 export class EventDetailsPage {
 
   event: any;
+  photos: any;
 
   constructor(public nav: NavController, public navParams: NavParams, private eventData: EventData) {
     this.event = this.navParams.get('event');
+    this.eventData.getPhotos(this.event.id).on('value', snapshot => {
+        let rawList = [];
+        snapshot.forEach( snap => {
+          rawList.push({
+            id: snap.key,
+            url: snap.val().url,
+            owner: snap.val().owner,
+          });
+        });
+        this.photos = rawList;
+      });
   }
 
   ionViewDidLoad() {
