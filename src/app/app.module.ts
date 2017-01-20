@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 import { AuthData } from '../providers/auth-data';
 import { EventData } from '../providers/event-data';
 import { ProfileData } from '../providers/profile-data';
+import { PhotoData } from '../providers/photo-data';
 
 import { SplashPage } from '../pages/splash/splash';
 import { SignupPage } from '../pages/signup/signup';
@@ -54,6 +55,6 @@ import { PhotoUploaderPage } from '../pages/photo-uploader/photo-uploader';
     ProfileEditPage,
     PhotoUploaderPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthData, EventData, ProfileData]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthData, EventData, ProfileData, PhotoData]
 })
 export class AppModule {}
