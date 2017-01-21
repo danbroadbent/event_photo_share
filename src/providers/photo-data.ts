@@ -15,7 +15,7 @@ export class PhotoData {
 
 
   getEventPhotos(eventId): any {
-    return this.photos.orderByChild("belongs_to_event/" + eventId).equalTo(true)
+    return this.photos.orderByChild("event").equalTo(eventId)
   }
 
 
@@ -35,8 +35,8 @@ export class PhotoData {
     let currentUser = this.currentUser.uid
     this.photos.push({
       url: downloadURL,
-      belongs_to_event: { [eventId]: true },
-      belongs_to_user: { [currentUser]: true }
+      event: eventId,
+      user: currentUser
     })
   }
 }
