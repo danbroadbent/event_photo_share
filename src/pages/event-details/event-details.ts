@@ -16,7 +16,8 @@ export class EventDetailsPage {
 
   constructor(public nav: NavController, public navParams: NavParams, private eventData: EventData, public photoData: PhotoData) {
     this.event = this.navParams.get('event');
-    this.photoData.getEventPhotos(this.event.id).on('value', snapshot => {
+    this.photoData.getEventPhotos(this.event.id)
+    .on('value', snapshot => {
         let rawList = [];
         snapshot.forEach( snap => {
           rawList.push({

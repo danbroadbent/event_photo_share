@@ -8,7 +8,7 @@ export class AuthData {
 
   constructor() {
     this.fireAuth = firebase.auth();
-    this.userProfile = firebase.database().ref('/userProfile');
+    this.userProfile = firebase.database().ref('/users');
     
   }
 

@@ -4,21 +4,20 @@ import firebase from 'firebase';
 @Injectable()
 export class PhotoData {
     currentUser: any;
-    eventPhotos: any;
-    userPhotos: any;
     photoBucket: any;
+    photos: any;
 
   constructor() {
     this.currentUser = firebase.auth().currentUser;
     this.photoBucket = firebase.storage().ref('userPhotos/');
-    this.eventPhotos = firebase.database().ref('eventPhotos/')
-    this.userPhotos = firebase.database().ref('userPhotos/')
+    this.photos = firebase.database().ref('photos/')
   }
 
 
   getEventPhotos(eventId): any {
-    return this.eventPhotos.child(eventId).child('photos/');
+    return this.photos.orderByChild("belongs_to_event/" + eventId).equalTo(true)
   }
+
 
   uploadPhoto(file: any, eventId: string): any {
     let date = new Date().getTime()
@@ -28,15 +27,16 @@ export class PhotoData {
     }, function(error) {
       alert("Upload Unsuccessful" + error)
     }).then( downloadURL => {
-      this.addEventPhoto(downloadURL, eventId)
+      this.addPhoto(downloadURL, eventId)
     })
     };
 
-    addEventPhoto(downloadURL, eventId) {
-      this.eventPhotos.child(eventId).child('photos/').push({
-        url: downloadURL,
-        owner: this.currentUser.uid,
-      })
-    }
-
+  addPhoto(downloadURL, eventId) {
+    let currentUser = this.currentUser.uid
+    this.photos.push({
+      url: downloadURL,
+      belongs_to_event: { [eventId]: true },
+      belongs_to_user: { [currentUser]: true }
+    })
+  }
 }
