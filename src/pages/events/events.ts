@@ -13,21 +13,19 @@ export class EventsPage {
   events: any = [];
 
   constructor(public nav: NavController, public eventData: EventData, public platform: Platform) {
-  
-  this.eventData = eventData;
-  this.nav = nav;
-
-  this.eventData.getEventList().on('value', snapshot => {
-        let rawList = [];
-        snapshot.forEach( snap => {
-          rawList.push({
-            id: snap.key,
-            name: snap.val().name,
-            description: snap.val().description,
+    this.eventData = eventData;
+    this.eventData.getEventList()
+    .on('value', snapshot => {
+          let rawList = [];
+          snapshot.forEach( snap => {
+            rawList.push({
+              id: snap.key,
+              name: snap.val().name,
+              description: snap.val().description,
+            });
           });
+          this.events = rawList;
         });
-        this.events = rawList;
-      });
     }
 
   goToCreateEvent(){

@@ -12,7 +12,7 @@ export class EventData {
   }
 
   getEventList(): any {
-    return this.events;
+    return this.events.orderByChild("host").equalTo(this.currentUser.uid);
   }
 
   createEvent(event: any): any {
