@@ -4,37 +4,34 @@ import firebase from 'firebase';
 @Injectable()
 export class EventData {
   currentUser: any; 
-  eventList: any; 
-
+  events: any; 
 
   constructor() {
     this.currentUser = firebase.auth().currentUser;
-    this.eventList = firebase.database().ref('userEvents/' + this.currentUser.uid);
-
+    this.events = firebase.database().ref('events/');
   }
 
   getEventList(): any {
-    return this.eventList;
+    return this.events.orderByChild("host").equalTo(this.currentUser.uid);
   }
 
   createEvent(event: any): any {
-    return this.eventList.push({
+    return this.events.push({
       name: event.eventName,
-      description: event.eventDescription
-    }).then( newEvent => {
-      this.eventList.child(newEvent.key).child('id').set(newEvent.key);
+      description: event.eventDescription,
+      host: this.currentUser.uid,
     });
   }
 
   editEvent(event: any, eventId: string): any {
-    return this.eventList.child(eventId).update({
+    return this.events.child(eventId).update({
       name: event.eventName,
       description: event.eventDescription
     })
   }
 
   deleteEvent(eventId: string): any {
-    this.eventList.child(eventId).remove()
+    this.events.child(eventId).remove()
   }
 
 }

@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 import { AuthData } from '../providers/auth-data';
 import { EventData } from '../providers/event-data';
 import { ProfileData } from '../providers/profile-data';
+import { PhotoData } from '../providers/photo-data';
 
 import { SplashPage } from '../pages/splash/splash';
 import { SignupPage } from '../pages/signup/signup';
@@ -17,6 +18,7 @@ import { EventCreatePage } from '../pages/event-create/event-create';
 import { EventEditPage } from '../pages/event-edit/event-edit';
 import { EventDetailsPage } from '../pages/event-details/event-details';
 import { ProfileEditPage } from '../pages/profile-edit/profile-edit';
+import { PhotoUploaderPage } from '../pages/photo-uploader/photo-uploader';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { ProfileEditPage } from '../pages/profile-edit/profile-edit';
     EventCreatePage,
     EventEditPage,
     EventDetailsPage,
-    ProfileEditPage
+    ProfileEditPage,
+    PhotoUploaderPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -49,8 +52,9 @@ import { ProfileEditPage } from '../pages/profile-edit/profile-edit';
     EventCreatePage,
     EventEditPage,
     EventDetailsPage,
-    ProfileEditPage
+    ProfileEditPage,
+    PhotoUploaderPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthData, EventData, ProfileData]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthData, EventData, ProfileData, PhotoData]
 })
 export class AppModule {}

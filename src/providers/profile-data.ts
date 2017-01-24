@@ -9,7 +9,7 @@ export class ProfileData {
 
   constructor() {
     this.currentUser = firebase.auth().currentUser;
-    this.userProfile = firebase.database().ref('/userProfile');
+    this.userProfile = firebase.database().ref('/users');
 
   }
 
