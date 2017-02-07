@@ -34,7 +34,7 @@ export class EventsPage {
 
   viewEvent(event): void {
     this.nav.push(EventDetailsPage, {
-      event: event
+      'eventId': event.id
     });
   }
 }

@@ -11,12 +11,19 @@ import { PhotoUploaderPage } from '../photo-uploader/photo-uploader'
 })
 export class EventDetailsPage {
 
-  event: any;
+  eventId: any;
+  event: {};
   photos: any;
 
   constructor(public nav: NavController, public navParams: NavParams, private eventData: EventData, public photoData: PhotoData) {
-    this.event = this.navParams.get('event');
-    this.photoData.getEventPhotos(this.event.id)
+    this.eventId = this.navParams.get('eventId');
+    this.event = {}
+    this.eventData.getEvent(this.eventId)
+    .on('value', snapshot => {
+        this.event = snapshot.val()
+      })
+    
+    this.photoData.getEventPhotos(this.eventId)
     .on('value', snapshot => {
         let rawList = [];
         snapshot.forEach( snap => {
@@ -41,13 +48,13 @@ export class EventDetailsPage {
   }
 
   deleteEvent(): void {
-  this.eventData.deleteEvent(this.event.id)
+  this.eventData.deleteEvent(this.eventId)
   this.nav.pop();
   }
 
   goToPhotoUploader() {
     this.nav.push(PhotoUploaderPage, { 
-      event: this.event
+      eventId: this.eventId
     });
   }
 

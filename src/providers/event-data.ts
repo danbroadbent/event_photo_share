@@ -5,22 +5,39 @@ import firebase from 'firebase';
 export class EventData {
   currentUser: any; 
   events: any; 
+  userEvents: any;
+  createEventLocations = {};  
 
   constructor() {
     this.currentUser = firebase.auth().currentUser;
     this.events = firebase.database().ref('events/');
+    this.userEvents = firebase.database().ref('userEvents/')
   }
 
   getEventList(): any {
-    return this.events.orderByChild("host").equalTo(this.currentUser.uid);
+    return this.userEvents.child(this.currentUser.uid)
+  }
+
+  getEvent(eventId): any {
+    return this.events.child(eventId)
   }
 
   createEvent(event: any): any {
-    return this.events.push({
+    var fullEventData = {
       name: event.eventName,
       description: event.eventDescription,
       host: this.currentUser.uid,
-    });
+    }
+    var userEventData = {
+      name: event.eventName,
+      host: true
+    }
+    var newEventKey = this.events.push().key
+    var updates = {};
+    updates['/events/' + newEventKey] = fullEventData;
+    updates['/userEvents/' + this.currentUser.uid + '/' + newEventKey] = userEventData;
+
+    return firebase.database().ref().update(updates);
   }
 
   editEvent(event: any, eventId: string): any {

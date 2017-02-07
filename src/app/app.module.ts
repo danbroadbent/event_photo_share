@@ -37,7 +37,11 @@ import { PhotoUploaderPage } from '../pages/photo-uploader/photo-uploader';
     PhotoUploaderPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, {}, {
+      links: [
+      { component: EventDetailsPage, name: 'Event', segment: 'event/:eventId' }
+     ]
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
