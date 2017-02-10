@@ -6,7 +6,6 @@ export class EventData {
   currentUser: any; 
   events: any; 
   userEvents: any;
-  createEventLocations = {};  
 
   constructor() {
     this.currentUser = firebase.auth().currentUser;
