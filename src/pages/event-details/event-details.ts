@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { EventEditPage } from '../event-edit/event-edit';
 import { EventData } from '../../providers/event-data';
 import { PhotoData } from '../../providers/photo-data';
+import { AuthData } from '../../providers/auth-data'
 import { PhotoUploaderPage } from '../photo-uploader/photo-uploader'
 
 @Component({
@@ -14,17 +15,26 @@ export class EventDetailsPage {
   eventId: any;
   event: {};
   photos: any;
+  currentUserId: any;
+  eventHost: any;
 
-  constructor(public nav: NavController, public navParams: NavParams, private eventData: EventData, public photoData: PhotoData) {
+  constructor(public nav: NavController, 
+              public navParams: NavParams, 
+              private eventData: EventData, 
+              public photoData: PhotoData,
+              public authData: AuthData) {
     this.eventId = this.navParams.get('eventId');
     this.event = {}
-    this.eventData.getEvent(this.eventId)
-    .on('value', snapshot => {
+    this.currentUserId = this.authData.currentUserId()
+  }
+
+  ionViewDidLoad() {
+    this.eventData.getEvent(this.eventId).on('value', snapshot => {
         this.event = snapshot.val()
+        this.eventHost = snapshot.val().host
       })
     
-    this.photoData.getEventPhotos(this.eventId)
-    .on('value', snapshot => {
+    this.photoData.getEventPhotos(this.eventId).on('value', snapshot => {
         let rawList = [];
         snapshot.forEach( snap => {
           rawList.push({
@@ -34,12 +44,7 @@ export class EventDetailsPage {
           });
         });
         this.photos = rawList;
-      });
-  }
-
-  ionViewDidLoad() {
-    console.log('Hello EventDetailsPage Page');
-  }
+      });  }
 
   goToEditEvent(event) {
   this.nav.push(EventEditPage, {

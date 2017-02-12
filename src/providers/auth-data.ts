@@ -11,6 +11,9 @@ export class AuthData {
     this.userProfile = firebase.database().ref('/users');
     
   }
+  currentUserId(){
+    return this.fireAuth.currentUser.uid;
+  }
 
   loginUser(email: string, password: string): any {
     return this.fireAuth.signInWithEmailAndPassword(email, password);

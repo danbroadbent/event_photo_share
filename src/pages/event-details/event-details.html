@@ -19,10 +19,13 @@
       <div *ngFor="let photo of photos">
         <img src={{photo.url}}/>
       </div>
-    <button ion-button large block color="pop" id='edit' (click)="goToEditEvent()">
+    <button ion-button large block color="pop" id='share' (click)="share()">
+      Share Event
+    </button>
+    <button *ngIf="currentUserId == eventHost" ion-button large block color="pop" id='edit' (click)="goToEditEvent()">
       Edit Event
     </button>
-    <button ion-button large block color="danger" id='delete' (click)="deleteEvent()">
+    <button *ngIf="currentUserId == eventHost" ion-button large block color="danger" id='delete' (click)="deleteEvent()">
       Delete Event
     </button>
   </div>
