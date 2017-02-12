@@ -47,7 +47,10 @@ export class EventData {
   }
 
   deleteEvent(eventId: string): any {
-    this.events.child(eventId).remove()
+    var updates = {};
+    updates['/events/' + eventId] = null;
+    updates['/userEvents/' + this.currentUser.uid + '/' + eventId] = null;
+    firebase.database().ref().update(updates);
   }
 
 }
