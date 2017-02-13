@@ -20,9 +20,9 @@ export class EventsPage {
     this.nav.push(EventCreatePage);
   }
 
-  viewEvent(event): void {
+  viewEvent(eventId): void {
     this.nav.push(EventDetailsPage, {
-      'eventId': event.id
+      'eventId': eventId
     });
   }
 }

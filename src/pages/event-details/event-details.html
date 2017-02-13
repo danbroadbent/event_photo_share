@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>
-      {{event.name}}
+      {{(event | async)?.name}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,7 +9,7 @@
 
 <ion-content>
   <div padding class='event-details'>
-    Event Description: {{event.description}}
+    Event Description: {{(event | async)?.description}}
   </div>
   <div class='event-buttons'>
     
