@@ -10,22 +10,10 @@ import { EventData } from '../../providers/event-data';
 })
 export class EventsPage {
 
-  events: any = [];
+  public userEvents: any;
 
   constructor(public nav: NavController, public eventData: EventData, public platform: Platform) {
-    this.eventData = eventData;
-    this.eventData.getEventList()
-    .on('value', snapshot => {
-          let rawList = [];
-          snapshot.forEach( snap => {
-            rawList.push({
-              id: snap.key,
-              name: snap.val().name,
-              description: snap.val().description,
-            });
-          });
-          this.events = rawList;
-        });
+    this.userEvents = this.eventData.getEventList();
     }
 
   goToCreateEvent(){
