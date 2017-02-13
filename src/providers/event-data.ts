@@ -1,24 +1,35 @@
 import { Injectable } from '@angular/core';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 import firebase from 'firebase';
 
 @Injectable()
 export class EventData {
-  currentUser: any; 
-  events: any; 
-  userEvents: any;
+  // currentUser: any; 
+  // events: any; 
+  // userEvents: any;
+  userEventList: FirebaseListObservable<any>;
+  eventDetail: FirebaseObjectObservable<any>;
+  userId: string;
 
-  constructor() {
-    this.currentUser = firebase.auth().currentUser;
-    this.events = firebase.database().ref('events/');
-    this.userEvents = firebase.database().ref('userEvents/')
+  constructor(public af: AngularFire) {
+    this.af.auth.subscribe(auth => {
+      if (auth) {
+        this.userEventList = af.database.list(`/userEvents/${auth.uid}`);
+        this.userId = auth.uid
+      }
+    })
+
+    // this.currentUser = firebase.auth().currentUser;
+    // this.events = firebase.database().ref('events/');
+    // this.userEvents = firebase.database().ref('userEvents/')
   }
 
-  getEventList(): any {
-    return this.userEvents.child(this.currentUser.uid)
+  getEventList() {
+    return this.userEventList
   }
 
-  getEvent(eventId): any {
-    return this.events.child(eventId)
+  getEvent(eventId: string) {
+    return this.af.database.object(`/events/${eventId}`)
   }
 
   createEvent(event: any): any {
