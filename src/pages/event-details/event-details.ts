@@ -12,8 +12,8 @@ import { PhotoUploaderPage } from '../photo-uploader/photo-uploader'
 })
 export class EventDetailsPage {
 
-  eventId: any;
   public event: any;
+  eventId: any;
   photos: any;
   currentUserId: any;
   eventHost: any;
@@ -28,12 +28,7 @@ export class EventDetailsPage {
     this.currentUserId = this.authData.getUser().uid
   }
 
-  ionViewDidLoad() {
-    // this.eventData.getEvent(this.eventId).on('value', snapshot => {
-    //     this.event = snapshot.val()
-    //     this.eventHost = snapshot.val().host
-    //   })
-    
+  ionViewDidLoad() {    
     this.photoData.getEventPhotos(this.eventId).on('value', snapshot => {
         let rawList = [];
         snapshot.forEach( snap => {
