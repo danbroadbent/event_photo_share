@@ -5,7 +5,7 @@ import firebase from 'firebase';
 @Injectable()
 export class AuthData {
   public fireAuth: any;
-  // public userProfile: any;
+  public userProfile: any;
 
   constructor(public af: AngularFire) {
     af.auth.subscribe( user => {
@@ -15,7 +15,7 @@ export class AuthData {
       }
     })
     // this.fireAuth = firebase.auth();
-    // this.userProfile = firebase.database().ref('/users');
+    this.userProfile = firebase.database().ref('/users');
     
   }
   getUser(){
@@ -37,10 +37,9 @@ export class AuthData {
   }
 
   linkAccount(username, email, password): any {
-    const userProfile = firebase.database().ref('/userProfile');
     const credential = firebase.auth.EmailAuthProvider.credential(email, password);
     return this.fireAuth.link(credential).then( user => {
-      userProfile.child(user.uid).update({
+      this.userProfile.child(user.uid).update({
         username: username,
         email: email
       });
@@ -49,14 +48,14 @@ export class AuthData {
     });
   }
 
-  // signupUser(username: string, email: string, password: string): any {
-  //   return this.fireAuth.createUserWithEmailAndPassword(email, password).then((newUser) => {
-  //     this.userProfile.child(newUser.uid).set({
-  //         username: username,
-  //         email: email
-  //     });
-  //   });
-  // }
+  signupUser(username: string, email: string, password: string): any {
+    return this.fireAuth.createUserWithEmailAndPassword(email, password).then((newUser) => {
+      this.userProfile.child(newUser.uid).set({
+          username: username,
+          email: email
+      });
+    });
+  }
 
   resetPassword(email: string): any {
     return firebase.auth().sendPasswordResetEmail(email);
