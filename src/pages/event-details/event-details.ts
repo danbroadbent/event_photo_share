@@ -25,7 +25,7 @@ export class EventDetailsPage {
               public authData: AuthData) {
     this.eventId = this.navParams.get('eventId');
     this.event = {}
-    this.currentUserId = this.authData.currentUserId()
+    this.currentUserId = this.authData.getUser().uid
   }
 
   ionViewDidLoad() {
