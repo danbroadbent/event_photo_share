@@ -13,22 +13,20 @@ import { PhotoUploaderPage } from '../photo-uploader/photo-uploader'
 export class EventDetailsPage {
 
   public event: any;
-  eventId: any;
-  photos: any;
-  currentUserId: any;
-  eventHost: any;
-
+  public eventId: any;
+  public photos: any;
+  public currentUserId: any;
+  
   constructor(public nav: NavController, 
               public navParams: NavParams, 
               private eventData: EventData, 
               public photoData: PhotoData,
-              public authData: AuthData) {
+              public authData: AuthData) {}
+
+  ionViewDidLoad() {
     this.eventId = this.navParams.get('eventId');
     this.event = this.eventData.getEvent(this.eventId)
-    this.currentUserId = this.authData.getUser().uid
-  }
-
-  ionViewDidLoad() {    
+    this.currentUserId = this.authData.getUser().uid   
     this.photoData.getEventPhotos(this.eventId).on('value', snapshot => {
         let rawList = [];
         snapshot.forEach( snap => {
