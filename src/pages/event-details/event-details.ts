@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { EventEditPage } from '../event-edit/event-edit';
 import { EventData } from '../../providers/event-data';
 import { PhotoData } from '../../providers/photo-data';
@@ -21,7 +21,8 @@ export class EventDetailsPage {
               public navParams: NavParams, 
               private eventData: EventData, 
               public photoData: PhotoData,
-              public authData: AuthData) {}
+              public authData: AuthData,
+              public popoverCtrl: PopoverController) {}
 
   ionViewDidLoad() {
     this.eventId = this.navParams.get('eventId');
@@ -54,6 +55,10 @@ export class EventDetailsPage {
     this.nav.push(PhotoUploaderPage, { 
       eventId: this.eventId
     });
+  }
+
+  shareEvent(){
+    let popover = this.popoverCtrl.create();
   }
 
 }
