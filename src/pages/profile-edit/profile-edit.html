@@ -15,15 +15,10 @@
       <ion-grid>
         <ion-row>
           <ion-col width-50>
-            Name
+            Username
           </ion-col>
-          <ion-col *ngIf="userProfile?.name">
-            {{userProfile?.name}}
-          </ion-col>
-          <ion-col class="placeholder-profile" *ngIf="!userProfile?.name">
-            <span>
-              Tap here to edit.
-            </span>
+          <ion-col>
+            {{(userProfile | async)?.username}}
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -35,10 +30,10 @@
           <ion-col width-50>
             Email
           </ion-col>
-          <ion-col width-50 *ngIf="userProfile?.email">
-            {{userProfile?.email}}
+          <ion-col width-50>
+            {{(userProfile | async)?.email}}
           </ion-col>
-          <ion-col class="placeholder-profile" *ngIf="!userProfile?.email">
+          <ion-col class="placeholder-profile">
             <span>
               Tap here to edit.
             </span>
@@ -55,7 +50,7 @@
           </ion-col>
           <ion-col class="placeholder-profile">
             <span>
-              Tap here to edit.
+              Tap here to change
             </span>
           </ion-col>
         </ion-row>
