@@ -14,16 +14,12 @@ export class AuthData {
         console.log(user);
       }
     })
-    // this.fireAuth = firebase.auth();
     this.userProfile = firebase.database().ref('/users');
     
   }
   getUser(){
     return this.fireAuth;
   }
-  // currentUserId(){
-  //   return this.fireAuth.currentUser.uid;
-  // }
 
   loginUser(email: string, password: string): any {
     return this.af.auth.login({ email: email, password: password});
