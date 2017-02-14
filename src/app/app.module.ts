@@ -19,6 +19,8 @@ import { EventEditPage } from '../pages/event-edit/event-edit';
 import { EventDetailsPage } from '../pages/event-details/event-details';
 import { ProfileEditPage } from '../pages/profile-edit/profile-edit';
 import { PhotoUploaderPage } from '../pages/photo-uploader/photo-uploader';
+import { ShareEventPage } from '../pages/share-event/share-event';
+
 
 import { AngularFireModule , AuthProviders, AuthMethods } from 'angularfire2';
 
@@ -49,7 +51,8 @@ const myFirebaseAuthConfig = {
     EventEditPage,
     EventDetailsPage,
     ProfileEditPage,
-    PhotoUploaderPage
+    PhotoUploaderPage,
+    ShareEventPage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {}, {
@@ -73,7 +76,8 @@ const myFirebaseAuthConfig = {
     EventEditPage,
     EventDetailsPage,
     ProfileEditPage,
-    PhotoUploaderPage
+    PhotoUploaderPage,
+    ShareEventPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, AuthData, EventData, ProfileData, PhotoData]
 })

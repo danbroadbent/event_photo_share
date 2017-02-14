@@ -1,0 +1,31 @@
+<!--
+  Generated template for the ShareEvent page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Share Event</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h4>Your event can be viewed at:</h4>
+  <p>http://event-photo-share.firebaseapp.com/#/event/{{eventId}}</p>
+  <button ion-button large block color="pop" id='share' (click)="shareEvent()">
+      Copy Event Link
+  </button>
+  <button ion-button large block color="pop" id='share' (click)="shareEvent()">
+      Email Event
+  </button>
+  <button ion-button large block color="pop" id='share' (click)="shareEvent()">
+      Share to Facebook
+  </button>
+  <button ion-button large block color="pop" id='share' (click)="shareEvent()">
+      Share to Twitter
+  </button>
+</ion-content>
