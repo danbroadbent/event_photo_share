@@ -40,23 +40,25 @@ export class EventData {
     }
     var newEventKey = this.events.push().key
     var updates = {};
-    updates['/events/' + newEventKey] = fullEventData;
-    updates['/userEvents/' + this.userId + '/' + newEventKey] = userEventData;
+    updates[`/events/${newEventKey}`] = fullEventData;
+    updates[`/userEvents/${this.userId}/${newEventKey}`] = userEventData;
 
     return firebase.database().ref().update(updates);
   }
 
   editEvent(event: any, eventId: string): any {
-    return this.events.child(eventId).update({
-      name: event.eventName,
-      description: event.eventDescription
-    })
+    var updates = {};
+    updates[`/events/${eventId}/name`] = event.eventName
+    updates[`/events/${eventId}/description`] = event.eventName
+    updates[`/userEvents/${this.userId}/${eventId}/name`] = event.eventName
+
+    return this.af.database.object('/').update(updates);
   }
 
   deleteEvent(eventId: string): any {
     var updates = {};
-    updates['/events/' + eventId] = null;
-    updates['/userEvents/' + this.userId + '/' + eventId] = null;
+    updates[`/events/${eventId}`] = null;
+    updates[`/userEvents/${this.userId}/${eventId}`] = null;
     firebase.database().ref().update(updates);
   }
 

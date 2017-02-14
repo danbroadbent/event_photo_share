@@ -13,7 +13,9 @@ export class EventEditPage {
   eventEdit: FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public eventData: EventData) {
-    this.event = this.navParams.get('event');
+    this.navParams.get('event').subscribe( snapshot => {
+      this.event = snapshot
+    });
     this.eventEdit = formBuilder.group({
       eventName: [this.event.name],
       eventDescription: [this.event.description]
@@ -26,8 +28,8 @@ export class EventEditPage {
 
   editEvent(): void {
     let data = this.eventEdit.value;
-    this.eventData.editEvent(data, this.event.id)
-    this.navCtrl.pop();  
+    this.eventData.editEvent(data, this.event.$key)
+    this.navCtrl.pop();
   }
 
 }
