@@ -6,8 +6,6 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { SplashPage } from '../pages/splash/splash';
 
 import { AngularFire } from 'angularfire2';
-import firebase from 'firebase';
-
 
 @Component({
   templateUrl: 'app.html'
