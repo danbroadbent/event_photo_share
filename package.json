@@ -1,7 +1,7 @@
 {
   "name": "event-photo-share",
   "author": "Dan Broadbent",
-  "homepage": "http://weventapp.com/",
+  "homepage": "https://event-photo-share.firebaseapp.com/",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "1.0.0",
+
     "typescript": "2.0.9"
   },
   "cordovaPlugins": [
@@ -49,5 +50,5 @@
       "locator": "ios"
     }
   ],
-  "description": "eps-ionic2: An Ionic project"
+  "description": "Event Photo Share, an app for sharing photos at events"
 }
