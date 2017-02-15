@@ -14,15 +14,12 @@
 
 
 <ion-content padding>
-  <h4>Your event can be viewed at:</h4>
-  <p>https://event-photo-share.firebaseapp.com/#/event/{{eventId}}</p>
-  <button ion-button large block icon-left color="pop" id='share' (click)="shareEvent()">
-    <ion-icon name="copy"></ion-icon>
-    Copy Event Link
-  </button>
+  <h4>Copy this link and share with anyone:</h4>
+  <input onClick="this.select();" id="share-link" value="https://event-photo-share.firebaseapp.com/#/event/{{eventId}}">
+  <h4>OR:</h4>
   <a href={{emailCopy}} button ion-button large block icon-left color="pop">
     <ion-icon name="mail"></ion-icon>
-    Email Event
+    Email Event Link
   </a>
   <!--<button ion-button large block icon-left color="pop" id='share' (click)="shareEvent()">
     <ion-icon name="logo-facebook"></ion-icon>
