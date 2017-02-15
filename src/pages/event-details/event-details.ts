@@ -3,8 +3,9 @@ import { NavController, NavParams } from 'ionic-angular';
 import { EventEditPage } from '../event-edit/event-edit';
 import { EventData } from '../../providers/event-data';
 import { PhotoData } from '../../providers/photo-data';
-import { AuthData } from '../../providers/auth-data'
-import { PhotoUploaderPage } from '../photo-uploader/photo-uploader'
+import { AuthData } from '../../providers/auth-data';
+import { PhotoUploaderPage } from '../photo-uploader/photo-uploader';
+import { ShareEventPage } from '../share-event/share-event';
 
 @Component({
   selector: 'page-event-details',
@@ -52,6 +53,12 @@ export class EventDetailsPage {
 
   goToPhotoUploader() {
     this.nav.push(PhotoUploaderPage, { 
+      eventId: this.eventId
+    });
+  }
+
+  shareEvent(){
+    this.nav.push(ShareEventPage, {
       eventId: this.eventId
     });
   }

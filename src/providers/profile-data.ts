@@ -28,15 +28,6 @@ export class ProfileData {
     });
   }
 
-  editEvent(event: any, eventId: string): any {
-    var updates = {};
-    updates[`/events/${eventId}/name`] = event.eventName
-    updates[`/events/${eventId}/description`] = event.eventName
-    updates[`/userEvents/${this.fireAuth.uid}/${eventId}/name`] = event.eventName
-
-    return this.af.database.object('/').update(updates);
-  }
-
   reauthenticate(parameter): any{
     let alert = this.alertCtrl.create({
       title: "Verify Current Password",
