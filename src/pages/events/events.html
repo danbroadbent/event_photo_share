@@ -10,9 +10,12 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <button ion-item *ngFor="let event of events" (click)="viewEvent(event)">
+  <ion-list *ngIf="userEvents">
+    <button ion-item *ngFor="let event of userEvents | async" (click)="viewEvent(event.$key)">
       {{event.name}}
     </button>
   </ion-list>
+  <ion-content *ngIf="!userEvents">
+    Tap New Event To Create Your First Event
+  </ion-content>
 </ion-content>

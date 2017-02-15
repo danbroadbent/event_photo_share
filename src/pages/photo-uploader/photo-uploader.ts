@@ -11,10 +11,10 @@ import { LoadingController } from 'ionic-angular';
 export class PhotoUploaderPage {
 
   files: any = {};
-  event: any;
+  eventId: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public photoData: PhotoData, public loadingCtrl: LoadingController) {
-    this.event = this.navParams.get('event');
+    this.eventId = this.navParams.get('eventId');
   }
 
   ionViewDidLoad() {
@@ -57,12 +57,12 @@ export class PhotoUploaderPage {
     for(var i = 0; i< this.files.length; i++){
       var file = this.files[i];
       if( i == this.files.length - 1){
-        this.photoData.uploadPhoto(file, this.event.id).then((result) => {
+        this.photoData.uploadPhoto(file, this.eventId).then((result) => {
           loader.dismiss()
           this.navCtrl.pop()
         })
       } else {
-        this.photoData.uploadPhoto(file, this.event.id) 
+        this.photoData.uploadPhoto(file, this.eventId) 
       }
     }
   }

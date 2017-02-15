@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { ProfileData } from '../../providers/profile-data';
 import { AuthData } from '../../providers/auth-data';
-import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-profile-edit',
@@ -11,25 +10,20 @@ import { LoginPage } from '../login/login';
 export class ProfileEditPage {
   public userProfile: any;
 
-  constructor(public nav: NavController, public profileData: ProfileData,
-    public authData: AuthData, public alertCtrl: AlertController) {
-    this.nav = nav;
-    this.profileData = profileData;
-
-    this.profileData.getUserProfile().on('value', (data) => {
-      this.userProfile = data.val();
-    });
+  constructor(public nav: NavController, 
+              public profileData: ProfileData,
+              public authData: AuthData, 
+              public alertCtrl: AlertController) {
+    this.userProfile = this.profileData.getUserProfile();
   }
 
   logOut(){
-      this.authData.logoutUser().then(() => {
-        this.nav.setRoot(LoginPage);
-      });
+      this.authData.logoutUser();
     }
 
   updateName(){
     let alert = this.alertCtrl.create({
-      message: "Your first name & last name",
+      message: "Username",
       inputs: [
         {
           name: 'username',
@@ -38,11 +32,8 @@ export class ProfileEditPage {
         }
       ],
       buttons: [
-        {
-          text: 'Cancel',
-        },
-        {
-          text: 'Save',
+        { text: 'Cancel' },
+        { text: 'Save',
           handler: data => {
             this.profileData.updateUsername(data.username);
             }
@@ -52,50 +43,11 @@ export class ProfileEditPage {
       alert.present();
      }
 
-    updateEmail(){
-      let alert = this.alertCtrl.create({
-        inputs: [
-          {
-            name: 'newEmail',
-            placeholder: 'Your new email',
-          },
-        ],
-        buttons: [
-          {
-            text: 'Cancel',
-          },
-          {
-            text: 'Save',
-            handler: data => {
-              this.profileData.updateEmail(data.newEmail);
-            }
-          }
-        ]
-      });
-      alert.present();
-    }
+  updateEmail(){
+    this.profileData.reauthenticate("email")
+  }
 
   updatePassword(){
-    let alert = this.alertCtrl.create({
-      inputs: [
-        {
-          name: 'newPassword',
-          placeholder: 'Your new password',
-          type: 'password'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-        },
-        {
-          text: 'Save',
-          handler: data => {
-            this.profileData.updatePassword(data.newPassword);
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
+    this.profileData.reauthenticate("password")
+  }  
 }

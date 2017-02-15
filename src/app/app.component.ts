@@ -1,36 +1,26 @@
-import { Component, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { SplashPage } from '../pages/splash/splash';
 
-import firebase from 'firebase';
-
+import { AngularFire } from 'angularfire2';
 
 @Component({
-  template: `<ion-nav [root]="rootPage"></ion-nav>`
+  templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage: any;
-  zone: NgZone;
 
-  constructor(platform: Platform) {
-    this.zone = new NgZone({});
-    firebase.initializeApp({
-      apiKey: "AIzaSyA2sP87i8Ae5m78Rm0B-ELnDZHucICx05E",
-      authDomain: "event-photo-share.firebaseapp.com",
-      databaseURL: "https://event-photo-share.firebaseio.com",
-      storageBucket: "event-photo-share.appspot.com",
-      messagingSenderId: "38582519137"
-    });
+  constructor(platform: Platform, public af: AngularFire) {
 
-    firebase.auth().onAuthStateChanged((user) => {
-      this.zone.run( () => {
-        if (!user) {
-          this.rootPage = SplashPage;
-        } else { this.rootPage = TabsPage; }
-      });     
+    af.auth.subscribe( user => {
+      if (user) {
+        this.rootPage = TabsPage;
+      } else {
+        this.rootPage = SplashPage;
+      }
     });
 
     platform.ready().then(() => {

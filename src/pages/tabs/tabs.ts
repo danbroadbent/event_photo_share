@@ -9,8 +9,8 @@ import { ProfilePage } from '../profile/profile';
 export class TabsPage {
   // this tells the tabs component which Pages
   // should be each tab's root Page
-  tab1Root: any = EventsPage;
-  tab2Root: any = ProfilePage;
+  eventsRoot: any = EventsPage;
+  profileRoot: any = ProfilePage;
 
   constructor() {
 

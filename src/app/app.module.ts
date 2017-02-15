@@ -20,6 +20,21 @@ import { EventDetailsPage } from '../pages/event-details/event-details';
 import { ProfileEditPage } from '../pages/profile-edit/profile-edit';
 import { PhotoUploaderPage } from '../pages/photo-uploader/photo-uploader';
 
+import { AngularFireModule , AuthProviders, AuthMethods } from 'angularfire2';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA2sP87i8Ae5m78Rm0B-ELnDZHucICx05E",
+  authDomain: "event-photo-share.firebaseapp.com",
+  databaseURL: "https://event-photo-share.firebaseio.com",
+  storageBucket: "event-photo-share.appspot.com",
+  messagingSenderId: "38582519137"
+};
+
+const myFirebaseAuthConfig = {
+  provider: AuthProviders.Password,
+  method: AuthMethods.Password
+}
+
 @NgModule({
   declarations: [
     MyApp,
@@ -37,7 +52,12 @@ import { PhotoUploaderPage } from '../pages/photo-uploader/photo-uploader';
     PhotoUploaderPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, {}, {
+      links: [
+      { component: TabsPage, segment: 'tabs', name: 'Tabs' },
+      { component: EventDetailsPage, segment: 'event/:eventId', name: 'Event', defaultHistory: [TabsPage]}
+     ]
+    }), AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [

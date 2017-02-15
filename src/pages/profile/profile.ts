@@ -11,12 +11,7 @@ export class ProfilePage {
   public userProfile: any;
 
   constructor(public nav: NavController, public profileData: ProfileData) {
-    this.nav = nav;
-    this.profileData = profileData;
-
-    this.profileData.getUserProfile().on('value', (data) => {
-      this.userProfile = data.val();
-    });
+    this.userProfile = this.profileData.getUserProfile();
   }
 
   ionViewDidLoad() {

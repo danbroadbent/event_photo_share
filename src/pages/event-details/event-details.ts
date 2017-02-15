@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { EventEditPage } from '../event-edit/event-edit';
 import { EventData } from '../../providers/event-data';
 import { PhotoData } from '../../providers/photo-data';
+import { AuthData } from '../../providers/auth-data'
 import { PhotoUploaderPage } from '../photo-uploader/photo-uploader'
 
 @Component({
@@ -11,13 +12,22 @@ import { PhotoUploaderPage } from '../photo-uploader/photo-uploader'
 })
 export class EventDetailsPage {
 
-  event: any;
-  photos: any;
+  public event: any;
+  public eventId: any;
+  public photos: any;
+  public currentUserId: any;
+  
+  constructor(public nav: NavController, 
+              public navParams: NavParams, 
+              private eventData: EventData, 
+              public photoData: PhotoData,
+              public authData: AuthData) {}
 
-  constructor(public nav: NavController, public navParams: NavParams, private eventData: EventData, public photoData: PhotoData) {
-    this.event = this.navParams.get('event');
-    this.photoData.getEventPhotos(this.event.id)
-    .on('value', snapshot => {
+  ionViewDidLoad() {
+    this.eventId = this.navParams.get('eventId');
+    this.event = this.eventData.getEvent(this.eventId)
+    this.currentUserId = this.authData.getUser().uid   
+    this.photoData.getEventPhotos(this.eventId).on('value', snapshot => {
         let rawList = [];
         snapshot.forEach( snap => {
           rawList.push({
@@ -27,12 +37,7 @@ export class EventDetailsPage {
           });
         });
         this.photos = rawList;
-      });
-  }
-
-  ionViewDidLoad() {
-    console.log('Hello EventDetailsPage Page');
-  }
+      });  }
 
   goToEditEvent(event) {
   this.nav.push(EventEditPage, {
@@ -41,13 +46,13 @@ export class EventDetailsPage {
   }
 
   deleteEvent(): void {
-  this.eventData.deleteEvent(this.event.id)
+  this.eventData.deleteEvent(this.eventId)
   this.nav.pop();
   }
 
   goToPhotoUploader() {
     this.nav.push(PhotoUploaderPage, { 
-      event: this.event
+      eventId: this.eventId
     });
   }
 

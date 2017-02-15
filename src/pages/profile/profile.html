@@ -15,14 +15,14 @@
       Public Information
     </ion-list-header>
 
-    <ion-item *ngIf="userProfile?.username">
+    <ion-item>
      <ion-grid>
         <ion-row>
           <ion-col width-50>
             Username
           </ion-col>
           <ion-col>
-            {{userProfile.username}}
+            {{(userProfile | async)?.username}}
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -32,14 +32,14 @@
       Personal Information
     </ion-list-header>
 
-    <ion-item *ngIf="userProfile?.email">
+    <ion-item>
       <ion-grid>
         <ion-row>
           <ion-col width-50>
             Email
           </ion-col>
           <ion-col>
-            {{userProfile.email}}
+            {{(userProfile | async)?.email}}
           </ion-col>
         </ion-row>
       </ion-grid>
