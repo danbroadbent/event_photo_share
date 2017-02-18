@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { PhotoData } from '../../providers/photo-data';
 import { LoadingController } from 'ionic-angular';
+import EXIF from 'exif-js';
 
 @Component({
   selector: 'page-photo-uploader',
