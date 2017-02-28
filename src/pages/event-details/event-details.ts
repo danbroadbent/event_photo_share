@@ -27,7 +27,7 @@ export class EventDetailsPage {
   ionViewDidLoad() {
     this.eventId = this.navParams.get('eventId');
     this.event = this.eventData.getEvent(this.eventId)
-    this.currentUserId = this.authData.getUser().uid   
+    this.currentUserId = this.authData.getUser().uid || null
     this.photoData.getEventPhotos(this.eventId).on('value', snapshot => {
         let rawList = [];
         snapshot.forEach( snap => {
