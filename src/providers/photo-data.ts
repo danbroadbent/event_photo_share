@@ -21,12 +21,12 @@ export class PhotoData {
 
   uploadPhoto(blob: any, eventId: string): any {
     let date = new Date().getTime().toString
-    return this.photoBucket.child(date + blob.size).put(blob).then(function(snapshot){
+    return this.photoBucket.child(date + blob.size).put(blob).then((snapshot) => {
       console.log("upload successful")
       return snapshot.downloadURL;
     }, function(error) {
       alert("Upload Unsuccessful" + error)
-    }).then( downloadURL => {
+    }).then( (downloadURL) => {
       this.addPhoto(downloadURL, eventId)
     })
     };

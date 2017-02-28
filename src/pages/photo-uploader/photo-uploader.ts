@@ -11,10 +11,9 @@ import EXIF from 'exif-js';
 
 export class PhotoUploaderPage {
 
-  files: any = {};
+  files: any;
   eventId: any;
   blobs = [];
-  metaData = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public photoData: PhotoData, public loadingCtrl: LoadingController) {
     this.eventId = this.navParams.get('eventId');
@@ -25,6 +24,10 @@ export class PhotoUploaderPage {
   }
 
   addPhotos(event) {
+    let loader = this.loadingCtrl.create({
+      content: "Pre-processing photos..."
+    });
+    loader.present();
     var output = document.getElementById("output")
     output.innerHTML = ""
     this.files = event.srcElement.files
@@ -32,27 +35,27 @@ export class PhotoUploaderPage {
     for(var i = 0; i< this.files.length; i++){
       let file = this.files[i]
       if(file.type.match('image.*')){
-        // this.showThumbnail(file)
-        this.getExifData(file).then((exifData) => {
-          this.rotatePhoto(exifData, file)
-        })
+        if( i == this.files.length - 1){
+          this.getExifData(file)
+          .then((exifData) => {
+            this.rotatePhoto(exifData, file).then(() => {
+              this.addUploadButton()
+              loader.dismiss()
+            })
+          })
+        } else {
+            this.getExifData(file).then((exifData) => {
+            this.rotatePhoto(exifData, file)
+          })}
       } else {
         alert("You can only upload image files.");
       }
     }
-    this.addUploadButton()
+    
   }
 
-  // showThumbnail(file) {
-  //   var output = document.getElementById("output")
-  //   var img = document.createElement("img");
-  //   output.appendChild(img)
-  //   var reader = new FileReader();
-  //   reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
-  //   reader.readAsDataURL(file);
-  // }
-
   rotatePhoto(exifData, file) {
+    return new Promise((resolve, reject) => {
     var output = document.getElementById("output")
     var orientation = exifData.Orientation;
     var canvas = document.createElement("canvas");
@@ -82,22 +85,20 @@ export class PhotoUploaderPage {
 
       ctx.drawImage(thisImage,0,0);
       ctx.restore();
-      // this.images[i] = canvas.toDataURL();
       canvas.toBlob((blob) => {
         var newImg = document.createElement('img')
         var url = URL.createObjectURL(blob);
-
         newImg.onload = function() {
-          // no longer need to read the blob so it's revoked
           URL.revokeObjectURL(url);
         };
-
         newImg.src = url;
         output.appendChild(newImg);
         this.blobs.push(blob)
-      });
+        resolve(newImg)
+      }, 'image/jpeg');
     }
-    thisImage.src = URL.createObjectURL(file);
+    thisImage.src = URL.createObjectURL(file)
+    })
   }
 
   getExifData(file) {
