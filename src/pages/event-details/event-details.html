@@ -13,7 +13,7 @@
   </div>
   <div class='event-buttons'>
     
-    <button ion-button large block color="primary" id='addPhoto' (click)="goToPhotoUploader()">
+    <button *ngIf="currentUserId != null" ion-button large block color="primary" id='addPhoto' (click)="goToPhotoUploader()">
       Add Photos
     </button>
       <div *ngFor="let photo of photos">
