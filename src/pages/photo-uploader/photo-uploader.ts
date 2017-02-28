@@ -13,7 +13,7 @@ export class PhotoUploaderPage {
 
   files: any = {};
   eventId: any;
-  images= [];
+  blobs = [];
   metaData = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public photoData: PhotoData, public loadingCtrl: LoadingController) {
@@ -34,7 +34,7 @@ export class PhotoUploaderPage {
       if(file.type.match('image.*')){
         // this.showThumbnail(file)
         this.getExifData(file).then((exifData) => {
-          this.rotatePhoto(exifData, file, i)
+          this.rotatePhoto(exifData, file)
         })
       } else {
         alert("You can only upload image files.");
@@ -52,13 +52,13 @@ export class PhotoUploaderPage {
   //   reader.readAsDataURL(file);
   // }
 
-  rotatePhoto(exifData, file, i) {
+  rotatePhoto(exifData, file) {
     var output = document.getElementById("output")
     var orientation = exifData.Orientation;
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext('2d');
     var thisImage = new Image;
-    thisImage.onload = function() {
+    thisImage.onload = () => {
       canvas.width  = thisImage.width;
       canvas.height = thisImage.height;
       ctx.save();
@@ -83,9 +83,8 @@ export class PhotoUploaderPage {
       ctx.drawImage(thisImage,0,0);
       ctx.restore();
       // this.images[i] = canvas.toDataURL();
-      canvas.toBlob(function(blob) {
+      canvas.toBlob((blob) => {
         var newImg = document.createElement('img')
-        newImg.setAttribute("id", `image${i}`)
         var url = URL.createObjectURL(blob);
 
         newImg.onload = function() {
@@ -95,8 +94,9 @@ export class PhotoUploaderPage {
 
         newImg.src = url;
         output.appendChild(newImg);
+        this.blobs.push(blob)
       });
-    }.bind(this)
+    }
     thisImage.src = URL.createObjectURL(file);
   }
 
@@ -118,15 +118,15 @@ export class PhotoUploaderPage {
       content: "Photos Uploading..."
       });
     loader.present();
-    for(var i = 0; i< this.files.length; i++){
-      var file = this.files[i];
-      if( i == this.files.length - 1){
-        this.photoData.uploadPhoto(file, this.eventId).then((result) => {
+    for(var i = 0; i< this.blobs.length; i++){
+      var blob = this.blobs[i];
+      if( i == this.blobs.length - 1){
+        this.photoData.uploadPhoto(blob, this.eventId).then((result) => {
           loader.dismiss()
           this.navCtrl.pop()
         })
       } else {
-        this.photoData.uploadPhoto(file, this.eventId) 
+        this.photoData.uploadPhoto(blob, this.eventId) 
       }
     }
   }

@@ -19,9 +19,9 @@ export class PhotoData {
   }
 
 
-  uploadPhoto(file: any, eventId: string): any {
-    let date = new Date().getTime()
-    return this.photoBucket.child(date + file.name).put(file).then(function(snapshot){
+  uploadPhoto(blob: any, eventId: string): any {
+    let date = new Date().getTime().toString
+    return this.photoBucket.child(date + blob.size).put(blob).then(function(snapshot){
       console.log("upload successful")
       return snapshot.downloadURL;
     }, function(error) {
