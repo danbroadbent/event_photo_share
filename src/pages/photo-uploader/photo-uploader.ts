@@ -30,6 +30,7 @@ export class PhotoUploaderPage {
     loader.present();
     var output = document.getElementById("output")
     output.innerHTML = ""
+    this.blobs = []
     this.files = event.srcElement.files
     console.log(this.files)
     for(var i = 0; i< this.files.length; i++){
