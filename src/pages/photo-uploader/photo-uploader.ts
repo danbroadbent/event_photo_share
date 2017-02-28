@@ -85,6 +85,15 @@ export class PhotoUploaderPage {
 
       ctx.drawImage(thisImage,0,0);
       ctx.restore();
+      HTMLCanvasElement.prototype.toBlob = function(callback, type, encoderOptions){
+          var dataurl = this.toDataURL(type, encoderOptions);
+          var bstr = atob(dataurl.split(',')[1]), n = bstr.length, u8arr = new Uint8Array(n);
+          while(n--){
+              u8arr[n] = bstr.charCodeAt(n);
+          }
+          var blob = new Blob([u8arr], {type: type});
+          callback.call(this, blob);
+      };
       canvas.toBlob((blob) => {
         var newImg = document.createElement('img')
         var url = URL.createObjectURL(blob);
