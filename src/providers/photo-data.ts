@@ -4,12 +4,16 @@ import firebase from 'firebase';
 
 @Injectable()
 export class PhotoData {
-    currentUser: any;
+    currentUserId: any;
     photoBucket: any;
     photos: any;
 
   constructor(public af: AngularFire) {
-    this.currentUser = firebase.auth().currentUser;
+    this.af.auth.subscribe(auth => {
+      if (auth) {
+        this.currentUserId = auth.uid
+      }
+    })
     this.photoBucket = firebase.storage().ref('userPhotos/');
     this.photos = firebase.database().ref('photos/')
   }
@@ -38,11 +42,10 @@ export class PhotoData {
     };
 
   addPhoto(downloadURL, eventId) {
-    let currentUser = this.currentUser.uid
     this.photos.push({
       url: downloadURL,
       event: eventId,
-      user: currentUser
+      user: this.currentUserId
     })
   }
 }
