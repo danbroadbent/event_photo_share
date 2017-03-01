@@ -11,6 +11,7 @@ export class PhotoData {
   constructor(public af: AngularFire) {
     this.currentUser = firebase.auth().currentUser;
     this.photoBucket = firebase.storage().ref('userPhotos/');
+    this.photos = firebase.database().ref('photos/')
   }
 
 

@@ -56,10 +56,33 @@ export class EventData {
   }
 
   deleteEvent(eventId: string): any {
-    var updates = {};
-    updates[`/events/${eventId}`] = null;
-    updates[`/userEvents/${this.userId}/${eventId}`] = null;
-    firebase.database().ref().update(updates);
+    this.getEventPhotoIds(eventId).then((photoIds: Array<string>) => {
+      var updates = {};
+      for(var i = 0; i < photoIds.length; i++){
+        updates[`/photos/${photoIds[i]}/event`] = null;
+      }
+      return updates
+    }).then((updates) => {
+      updates[`/events/${eventId}`] = null;
+      updates[`/userEvents/${this.userId}/${eventId}`] = null;
+      firebase.database().ref().update(updates);
+    })    
+  }
+
+  getEventPhotoIds(eventId) {
+    return new Promise((resolve, reject) => {
+      let photos
+      let photoIds = []
+      firebase.database().ref('/photos').orderByChild("event").equalTo(eventId).once('value').then((snapshot) => {
+        photos = snapshot.val()
+        for (var key in photos) {
+          if (photos.hasOwnProperty(key)) {
+            photoIds.push(key);
+          }
+        }
+      })
+      resolve(photoIds)
+    })
   }
 
 }
