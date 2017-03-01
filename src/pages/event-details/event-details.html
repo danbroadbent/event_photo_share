@@ -16,7 +16,7 @@
     <button *ngIf="currentUserId != null" ion-button large block color="primary" id='addPhoto' (click)="goToPhotoUploader()">
       Add Photos
     </button>
-      <div *ngFor="let photo of photos">
+      <div *ngFor="let photo of photos | async">
         <img src={{photo.url}}/>
       </div>
     <button ion-button large block color="pop" id='share' (click)="shareEvent()">

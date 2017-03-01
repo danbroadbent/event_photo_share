@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 import firebase from 'firebase';
 
 @Injectable()
@@ -7,15 +8,19 @@ export class PhotoData {
     photoBucket: any;
     photos: any;
 
-  constructor() {
+  constructor(public af: AngularFire) {
     this.currentUser = firebase.auth().currentUser;
     this.photoBucket = firebase.storage().ref('userPhotos/');
-    this.photos = firebase.database().ref('photos/')
   }
 
 
   getEventPhotos(eventId): any {
-    return this.photos.orderByChild("event").equalTo(eventId)
+    return this.af.database.list('/photos', {
+    query: {
+      orderByChild: 'event',
+      equalTo: `${eventId}` 
+      }
+    })
   }
 
 
