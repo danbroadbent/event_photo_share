@@ -36,6 +36,7 @@ export class EventData {
     }
     var userEventData = {
       name: event.eventName,
+      description: event.eventDescription,
       host: true
     }
     var newEventKey = this.events.push().key
