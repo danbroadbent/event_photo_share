@@ -24,12 +24,7 @@ export class PhotoData {
 
 
   getEventPhotos(eventId): any {
-    return this.af.database.list('/photos', {
-    query: {
-      orderByChild: 'event',
-      equalTo: `${eventId}` 
-      }
-    })
+    return this.af.database.list(`/eventPhotos/${eventId}`)
   }
 
 
