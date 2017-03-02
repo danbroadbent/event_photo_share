@@ -7,12 +7,16 @@ export class PhotoData {
     currentUserId: any;
     photoBucket: any;
     photos: any;
+    user: any;
 
   constructor(public af: AngularFire) {
     this.af.auth.subscribe(auth => {
       if (auth) {
         this.currentUserId = auth.uid
       }
+    })
+    firebase.database().ref(`users/${this.currentUserId}`).once('value').then((snapshot) => {
+      this.user = snapshot.val()
     })
     this.photoBucket = firebase.storage().ref('userPhotos/');
     this.photos = firebase.database().ref('photos/')
@@ -45,7 +49,8 @@ export class PhotoData {
     this.photos.push({
       url: downloadURL,
       event: eventId,
-      user: this.currentUserId
+      user: this.currentUserId,
+      username: this.user.username
     })
   }
 }
