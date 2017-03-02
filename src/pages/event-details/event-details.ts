@@ -27,18 +27,9 @@ export class EventDetailsPage {
   ionViewDidLoad() {
     this.eventId = this.navParams.get('eventId');
     this.event = this.eventData.getEvent(this.eventId)
-    this.currentUserId = this.authData.getUser().uid   
-    this.photoData.getEventPhotos(this.eventId).on('value', snapshot => {
-        let rawList = [];
-        snapshot.forEach( snap => {
-          rawList.push({
-            id: snap.key,
-            url: snap.val().url,
-            owner: snap.val().owner,
-          });
-        });
-        this.photos = rawList;
-      });  }
+    this.currentUserId = (this.authData.getUser() != undefined) ? this.authData.getUser().uid : null
+    this.photos = this.photoData.getEventPhotos(this.eventId)
+  }
 
   goToEditEvent(event) {
   this.nav.push(EventEditPage, {

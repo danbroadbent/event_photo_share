@@ -15,7 +15,7 @@
 
 <ion-content padding>
   <h4>Copy this link and share with anyone:</h4>
-  <input onClick="this.select();" id="share-link" value="https://event-photo-share.firebaseapp.com/#/event/{{eventId}}">
+  <input onClick="this.setSelectionRange(0, this.value.length)" id="share-link" value="https://event-photo-share.firebaseapp.com/#/event/{{eventId}}">
   <h4>OR:</h4>
   <a href={{emailCopy}} button ion-button large block icon-left color="pop">
     <ion-icon name="mail"></ion-icon>

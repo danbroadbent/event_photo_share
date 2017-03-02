@@ -4,8 +4,8 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <input type="file" name="file" id="file" class="inputfile" (change)="addPhotos($event)" multiple />
+  <input type="file" name="file" id="file" class="inputfile" accept="image/*" (change)="addPhotos($event)" multiple />
   <label ion-button large block color='primary' for="file" id="uploadPhotoLabel">Select Photos</label>
   <button hidden ion-button large block color='secondary' id="uploadButton" (click)="uploadPhotos()">Upload Selected Photos</button>
-  <div id="result"></div>
+  <div id="output"></div>
 </ion-content>
