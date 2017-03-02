@@ -46,11 +46,14 @@ export class PhotoData {
     };
 
   addPhoto(downloadURL, eventId) {
-    this.photos.push({
-      url: downloadURL,
-      event: eventId,
-      user: this.currentUserId,
-      username: this.user.username
-    })
+    let fullPhotoData = { url: downloadURL, event: eventId, user: this.currentUserId, username: this.user.username }
+    let eventPhotoData = { url: downloadURL, event: eventId, user: this.currentUserId, username: this.user.username }
+    let userPhotoData = { url: downloadURL, event: eventId, user: this.currentUserId, username: this.user.username }
+    let newPhotoKey = this.photos.push().key
+    let updates = {}
+    updates[`/photos/${newPhotoKey}`] = fullPhotoData
+    updates[`/eventPhotos/${eventId}/${newPhotoKey}`] = eventPhotoData
+    updates[`/userPhotos/${this.currentUserId}/${newPhotoKey}`] = userPhotoData
+    return firebase.database().ref().update(updates)
   }
 }
