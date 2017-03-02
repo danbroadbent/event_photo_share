@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list *ngIf="userEvents">
+  <ion-list>
     <button ion-item *ngFor="let event of userEvents | async" (click)="viewEvent(event.$key)">
       <ion-avatar item-left>
         <img src="assets/img/weventicon_512x512.png">
@@ -20,7 +20,4 @@
       <h2 item-right>Host</h2>
     </button>
   </ion-list>
-  <ion-content *ngIf="!userEvents">
-    Tap New Event To Create Your First Event
-  </ion-content>
 </ion-content>
