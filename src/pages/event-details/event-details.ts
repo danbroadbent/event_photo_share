@@ -13,7 +13,7 @@ import { ShareEventPage } from '../share-event/share-event';
 })
 export class EventDetailsPage {
 
-  public event: any;
+  public afEvent: any;
   public eventId: any;
   public photos: any;
   public currentUserId: any;
@@ -26,14 +26,14 @@ export class EventDetailsPage {
 
   ionViewDidLoad() {
     this.eventId = this.navParams.get('eventId');
-    this.event = this.eventData.getEvent(this.eventId)
+    this.afEvent = this.eventData.getEvent(this.eventId)
     this.currentUserId = (this.authData.getUser() != undefined) ? this.authData.getUser().uid : null
     this.photos = this.photoData.getEventPhotos(this.eventId)
   }
 
   goToEditEvent(event) {
   this.nav.push(EventEditPage, {
-      event: this.event
+      event: this.afEvent
     });
   }
 
@@ -44,7 +44,7 @@ export class EventDetailsPage {
 
   goToPhotoUploader() {
     this.nav.push(PhotoUploaderPage, { 
-      eventId: this.eventId
+      afEvent: this.afEvent
     });
   }
 

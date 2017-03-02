@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>
-      {{(event | async)?.name}}
+      {{(afEvent | async)?.name}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,7 +9,7 @@
 
 <ion-content>
   <div padding class='event-details'>
-    Event Description: {{(event | async)?.description}}
+    Event Description: {{(afEvent | async)?.description}}
   </div>
   <div class='event-buttons'>
     
@@ -22,10 +22,10 @@
     <button ion-button large block color="pop" id='share' (click)="shareEvent()">
       Share Event
     </button>
-    <button *ngIf="currentUserId == (event | async)?.host" ion-button large block color="pop" id='edit' (click)="goToEditEvent()">
+    <button *ngIf="currentUserId == (afEvent | async)?.host" ion-button large block color="pop" id='edit' (click)="goToEditEvent()">
       Edit Event
     </button>
-    <button *ngIf="currentUserId == (event | async)?.host" ion-button large block color="danger" id='delete' (click)="deleteEvent()">
+    <button *ngIf="currentUserId == (afEvent | async)?.host" ion-button large block color="danger" id='delete' (click)="deleteEvent()">
       Delete Event
     </button>
   </div>

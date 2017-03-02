@@ -8,6 +8,7 @@ export class PhotoData {
     photoBucket: any;
     photos: any;
     user: any;
+    event: any;
 
   constructor(public af: AngularFire) {
     this.af.auth.subscribe(auth => {
@@ -28,7 +29,7 @@ export class PhotoData {
   }
 
 
-  uploadPhoto(blob: any, eventId: string): any {
+  uploadPhoto(blob: any, afEvent: any): any {
     let date = new Date().getTime().toString()
     return this.photoBucket.child(date + blob.size).put(blob).then((snapshot) => {
       console.log("upload successful")
@@ -36,18 +37,21 @@ export class PhotoData {
     }, function(error) {
       alert("Upload Unsuccessful" + error)
     }).then( (downloadURL) => {
-      this.addPhoto(downloadURL, eventId)
+      this.addPhoto(downloadURL, afEvent)
     })
     };
 
-  addPhoto(downloadURL, eventId) {
-    let fullPhotoData = { url: downloadURL, event: eventId, user: this.currentUserId, username: this.user.username }
-    let eventPhotoData = { url: downloadURL, event: eventId, user: this.currentUserId, username: this.user.username }
-    let userPhotoData = { url: downloadURL, event: eventId, user: this.currentUserId, username: this.user.username }
+  addPhoto(downloadURL, afEvent) {
+    afEvent.subscribe( snapshot => {
+      this.event = snapshot
+    });
+    let fullPhotoData = { url: downloadURL, event: this.event.$key, eventName: this.event.name, user: this.currentUserId, username: this.user.username }
+    let eventPhotoData = { url: downloadURL, event: this.event.$key, eventName: this.event.name, user: this.currentUserId, username: this.user.username }
+    let userPhotoData = { url: downloadURL, event: this.event.$key, eventName: this.event.name, user: this.currentUserId, username: this.user.username }
     let newPhotoKey = this.photos.push().key
     let updates = {}
     updates[`/photos/${newPhotoKey}`] = fullPhotoData
-    updates[`/eventPhotos/${eventId}/${newPhotoKey}`] = eventPhotoData
+    updates[`/eventPhotos/${this.event.$key}/${newPhotoKey}`] = eventPhotoData
     updates[`/userPhotos/${this.currentUserId}/${newPhotoKey}`] = userPhotoData
     return firebase.database().ref().update(updates)
   }
