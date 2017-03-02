@@ -6,6 +6,7 @@ Users can
 - Sign up/log in with Firebase Authentication
 - Create an event
 - Upload multiple photos at once to Firebase Storage
+- Share links to events
 
 I have deployed it as a web app and iOS app so far.  (Check the web version for the latest build, iOS has a much longer update cycle and may be behind the web build)
 
@@ -14,7 +15,7 @@ See it live:
 - iOS: https://itunes.apple.com/us/app/event-photo-share/id1191691087?mt=8
 
 Future plans include:
-- Deep links
+
 - Social link sharing
 - Authorization based on user type
 - Full progressive web app compliance
