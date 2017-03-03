@@ -23,11 +23,13 @@ export class PhotoData {
     this.photos = firebase.database().ref('photos/')
   }
 
-
   getEventPhotos(eventId): any {
     return this.af.database.list(`/eventPhotos/${eventId}`)
   }
 
+  getUserPhotos(): any {
+    return this.af.database.list(`/userPhotos/${this.currentUserId}`)
+  }
 
   uploadPhoto(blob: any, afEvent: any): any {
     let date = new Date().getTime().toString()

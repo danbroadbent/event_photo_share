@@ -1,6 +1,12 @@
 <article>
-<ion-item>
+<ion-item *ngIf="feedType == 'event'">
   {{photo.username}}
+  <ion-avatar item-left>
+      <img src="assets/img/weventicon_512x512.png">
+    </ion-avatar>
+</ion-item>
+<ion-item *ngIf="feedType == 'profile'">
+  {{photo.eventName}}
   <ion-avatar item-left>
       <img src="assets/img/weventicon_512x512.png">
     </ion-avatar>

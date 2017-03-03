@@ -17,7 +17,7 @@
       Add Photos
     </button>
       <div *ngFor="let photo of photos | async">
-        <photo [photo]="photo"></photo>
+        <photo [photo]="photo" feedType="event"></photo>
       </div>
     <button ion-button large block color="pop" id='share' (click)="shareEvent()">
       Share Event
