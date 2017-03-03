@@ -42,6 +42,9 @@
         </ion-row>
       </ion-grid>
     </ion-item>
+    <ion-item>
+      My Uploads
+    </ion-item>
     <div *ngFor="let photo of photos | async">
       <photo [photo]="photo" feedType="profile"></photo>
     </div>
