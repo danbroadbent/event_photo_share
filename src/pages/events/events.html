@@ -4,18 +4,20 @@
       Events
     </ion-title>
     <ion-buttons end>
-      <button ion-button id="add-event" (click)="goToCreateEvent()">New Event<ion-icon name="add-circle"></ion-icon></button>
+      <button ion-button id="add-event" (click)="goToCreateEvent()"><ion-icon name="add-circle"> New Event</ion-icon></button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-list *ngIf="userEvents">
+  <ion-list>
     <button ion-item *ngFor="let event of userEvents | async" (click)="viewEvent(event.$key)">
-      {{event.name}}
+      <ion-avatar item-left>
+        <img src="assets/img/weventicon_512x512.png">
+      </ion-avatar>
+      <h2>{{event.name}}</h2>
+      <p>{{event.description}}</p>
+      <h2 item-right>Host</h2>
     </button>
   </ion-list>
-  <ion-content *ngIf="!userEvents">
-    Tap New Event To Create Your First Event
-  </ion-content>
 </ion-content>

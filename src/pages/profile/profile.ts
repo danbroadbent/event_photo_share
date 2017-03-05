@@ -1,6 +1,7 @@
 import { NavController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { ProfileData } from '../../providers/profile-data';
+import { PhotoData } from '../../providers/photo-data';
 import { ProfileEditPage } from '../profile-edit/profile-edit';
 
 @Component({
@@ -9,9 +10,11 @@ import { ProfileEditPage } from '../profile-edit/profile-edit';
 })
 export class ProfilePage {
   public userProfile: any;
+  public photos: any;
 
-  constructor(public nav: NavController, public profileData: ProfileData) {
+  constructor(public nav: NavController, public profileData: ProfileData, public photoData: PhotoData) {
     this.userProfile = this.profileData.getUserProfile();
+    this.photos = this.photoData.getUserPhotos();
   }
 
   ionViewDidLoad() {

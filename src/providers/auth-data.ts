@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFire , AuthProviders, AuthMethods } from 'angularfire2';
+import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 import firebase from 'firebase';
 
 @Injectable()
@@ -45,7 +45,7 @@ export class AuthData {
   }
 
   signupUser(username: string, email: string, password: string): any {
-    return this.fireAuth.createUserWithEmailAndPassword(email, password).then((newUser) => {
+    return firebase.auth().createUserWithEmailAndPassword(email, password).then((newUser) => {
       this.userProfile.child(newUser.uid).set({
           username: username,
           email: email
@@ -58,7 +58,9 @@ export class AuthData {
   }
 
   logoutUser(): any {
-    return this.af.auth.logout();
+    return this.af.auth.logout().then(() => {
+      window.location.reload();
+    });
   }
 
 }

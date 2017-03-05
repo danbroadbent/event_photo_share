@@ -12,11 +12,11 @@ import EXIF from 'exif-js';
 export class PhotoUploaderPage {
 
   files: any;
-  eventId: any;
+  afEvent: any;
   blobs = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public photoData: PhotoData, public loadingCtrl: LoadingController) {
-    this.eventId = this.navParams.get('eventId');
+    this.afEvent = this.navParams.get('afEvent')
   }
 
   ionViewDidLoad() {
@@ -132,12 +132,12 @@ export class PhotoUploaderPage {
     for(var i = 0; i< this.blobs.length; i++){
       var blob = this.blobs[i];
       if( i == this.blobs.length - 1){
-        this.photoData.uploadPhoto(blob, this.eventId).then((result) => {
+        this.photoData.uploadPhoto(blob, this.afEvent).then((result) => {
           loader.dismiss()
           this.navCtrl.pop()
         })
       } else {
-        this.photoData.uploadPhoto(blob, this.eventId) 
+        this.photoData.uploadPhoto(blob, this.afEvent) 
       }
     }
   }

@@ -1,7 +1,4 @@
-import { 
-  NavController, 
-  LoadingController, 
-  AlertController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthData } from '../../providers/auth-data';
@@ -18,12 +15,11 @@ export class LoginPage {
   emailChanged: boolean = false;
   passwordChanged: boolean = false;
   submitAttempt: boolean = false;
-  loading: any;
 
-  constructor(public nav: NavController, public authData: AuthData, 
-    public formBuilder: FormBuilder, public alertCtrl: AlertController, 
-    public loadingCtrl: LoadingController) {
-
+  constructor(public nav: NavController, 
+              public authData: AuthData, 
+              public formBuilder: FormBuilder, 
+              public alertCtrl: AlertController) {
     this.loginForm = formBuilder.group({
       email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
       password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
@@ -42,27 +38,20 @@ export class LoginPage {
     if (!this.loginForm.valid){
       console.log(this.loginForm.value);
     } else {
-      this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password).then( authData => {
-        this.nav.setRoot(TabsPage);
+      this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password).then( () => {
+        console.log("successful login")
       }, error => {
-        this.loading.dismiss().then( () => {
-          let alert = this.alertCtrl.create({
-            message: error.message,
-            buttons: [
-              {
-                text: "Ok",
-                role: 'cancel'
-              }
-            ]
-          });
-          alert.present();          
+        let alert = this.alertCtrl.create({
+          message: error.message,
+          buttons: [
+            {
+              text: "Ok",
+              role: 'cancel'
+            }
+          ]
         });
+        alert.present();          
       });
-
-      this.loading = this.loadingCtrl.create({
-        dismissOnPageChange: true,
-      });
-      this.loading.present();
     }
   }
 
